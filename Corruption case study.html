@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case study on corruption</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      background: #000;
+      color: #fff;
+    }
+    .hero {
+      height: 100vh;
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      background-color: #0a0a2a;
+      background-blend-mode: overlay;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255,203,5,0.2) 0%, rgba(255,0,100,0.2) 100%);
+      z-index: 0;
+    }
+    .hero h1 {
+      font-size: 4rem;
+      color: #ffcb05;
+      text-shadow: 0 0 15px rgba(255, 203, 5, 0.7), 0 0 30px rgba(255, 203, 5, 0.4);
+      transition: transform 0.1s ease-out;
+      position: relative;
+      z-index: 1;
+    }
+    .hero p {
+      max-width: 600px;
+      font-size: 1.2rem;
+      color: #ffffff;
+      margin-top: 20px;
+      transition: transform 0.1s ease-out;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 0 10px rgba(255,255,255,0.3);
+      background: rgba(0,0,0,0.5);
+      padding: 15px;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+    }
+    .scroll-section {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+      position: relative;
+    }
+    .scroll-section:nth-child(odd) {
+      background: linear-gradient(45deg, #1e1e1e 0%, #2a0a3a 100%);
+    }
+    .scroll-section:nth-child(even) {
+      background: linear-gradient(45deg, #2a0a3a 0%, #1e1e1e 100%);
+    }
+    .scroll-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .scroll-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 50%, rgba(255,203,5,0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .scroll-section img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(255, 203, 5, 0.3);
+      border: 2px solid rgba(255, 203, 5, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .scroll-section img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 15px 50px rgba(255, 203, 5, 0.5);
+    }
+    .info-box {
+      max-width: 800px;
+      margin: auto;
+      padding: 40px;
+      background-color: rgba(17, 17, 17, 0.8);
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(255, 203, 5, 0.5);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 203, 5, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    .info-box::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,203,5,0.1) 0%, transparent 70%);
+      animation: rotate 20s linear infinite;
+      z-index: -1;
+    }
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .info-box h2 {
+      color: #ffcb05;
+      font-size: 2rem;
+      margin-bottom: 16px;
+      text-shadow: 0 0 10px rgba(255, 203, 5, 0.5);
+    }
+    .info-box p {
+      color: #ffffffcc;
+      line-height: 1.6;
+    }
+    .quote {
+      margin-top: 20px;
+      font-style: italic;
+      color: #ffcb05;
+      border-left: 4px solid #ffcb05;
+      padding-left: 20px;
+      background: rgba(255, 203, 5, 0.1);
+      padding: 15px;
+      border-radius: 0 8px 8px 0;
+    }
+    .footer {
+      background: linear-gradient(to bottom, #1e1e1e, #0a0a2a);
+      padding: 40px;
+      text-align: center;
+      color: #ffcb05;
+      position: relative;
+    }
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #ffcb05, transparent);
+    }
+    .footer p {
+      max-width: 600px;
+      margin: 0 auto 20px;
+    }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 20px;
+    }
+    .social-icons a {
+      color: #ffcb05;
+      font-size: 28px;
+      transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+      display: inline-block;
+    }
+    .social-icons a:hover {
+      transform: translateY(-5px) scale(1.1);
+      color: #fff;
+      text-shadow: 0 0 15px rgba(255, 203, 5, 0.8);
+    }
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, #ffcb05 0%, #ff5e62 100%);
+      color: #000;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 99;
+      box-shadow: 0 5px 15px rgba(255, 203, 5, 0.4);
+      border: none;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+    }
+    .back-to-top:hover {
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 8px 20px rgba(255, 203, 5, 0.6);
+    }
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      .social-icons {
+        gap: 15px;
+      }
+      .social-icons a {
+        font-size: 22px;
+      }
+      .info-box {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero" id="hero">
+    <h1 id="title">Exhibit A</h1>
+    <p id="subtitle">This small business located near Sacadadiin that is closed for its corrupt antics .</p>
+  </section>
+
+  <section class="scroll-section">
+    <img src="Business Photo.jpg" alt="Business Photo" />
+  </section>
+
+  <section class="scroll-section">
+    <div class="info-box"
+      <p>"What I discovered from studying this business is that people are saying it's downfall led to the rebellion because people would get horrible treatment, get paid less than miminum wage, and it ultimately led to an insane amount of people quitting and leaving destruction in their way.(All alleged information because im not trying to get sued)"</p>
+      <div class="quote">
+        "Employees are left disgruntled, heartbroken, and manipulate to the point where they all came in unison to take this business down."
+      </div>
+    </div>
+  </section>
+
+  <section class="scroll-section">
+    <div class="info-box">
+      <h2>Impact on Society</h2>
+      <p>This type of behavior is impactful because it allows people to fully understand that corruption affecting psyche isn't just leaving employees unmotivated, but it can cause destructive tendencies within a business.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>This is created to give people an idea on corruption affects the employee's morale and psyche.</p>
+    <div class="social-icons">
+      <a href="#" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" aria-label="Share via Email"><i class="fas fa-envelope"></i></a>
+    </div>
+  </footer>
+
+  <div class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <script>
+    // Scroll Animation
+    const sections = document.querySelectorAll('.scroll-section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    sections.forEach(section => observer.observe(section));
+
+    // Mouse-follow interactivity
+    const title = document.getElementById('title');
+    const subtitle = document.getElementById('subtitle');
+
+    document.addEventListener('mousemove', (e) => {
+      const { innerWidth, innerHeight } = window;
+      const x = (e.clientX / innerWidth - 0.5) * 10;
+      const y = (e.clientY / innerHeight - 0.5) * 10;
+      title.style.transform = `translate(${x}px, ${y}px)`;
+      subtitle.style.transform = `translate(${x / 2}px, ${y / 2}px)`;
+    });
+
+    // Back to top button
+    const backToTop = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Add subtle glow effect to hero text
+    setInterval(() => {
+      const intensity = 0.7 + Math.random() * 0.3;
+      title.style.textShadow = `0 0 ${15 * intensity}px rgba(255, 203, 5, ${0.5 * intensity}), 0 0 ${30 * intensity}px rgba(255, 203, 5, ${0.3 * intensity})`;
+    }, 2000);
+  </script>
+</body>
+</html>
