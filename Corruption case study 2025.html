@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 
+  <meta charset="UTF-8">
+  <title>Corruption case study</title>
+  
+  
+  
+  
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      font-family: 'Segoe UI', sans-serif; 
+      background: #000; 
+      color: #fff; 
+    }
+
+        .hero {
+      height: 100vh; 
+      display: flex;
+      flex-direction: column;
+      justify-content: center; 
+      align-items: center; 
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      background-color: #0a0a2a; 
+      background-blend-mode: overlay; 
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      color: #ffcb05; 
+      text-shadow: 0 0 15px rgba(255, 203, 5, 0.7), 
+                   0 0 30px rgba(255, 203, 5, 0.4);
+      transition: transform 0.1s ease-out; 
+      position: relative;
+      z-index: 1;
+    }
+
+        .hero p {
+      max-width: 600px;
+      font-size: 1.2rem;
+      color: #ffffff;
+      margin-top: 20px;
+      background: rgba(0,0,0,0.5); 
+      padding: 15px;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);     }
+
+
+    .scroll-section {
+      height: 100vh; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+      opacity: 0; 
+      transform: translateY(50px); 
+      transition: opacity 1s ease-out, transform 1s ease-out; /* Smooth fade-in */
+    }
+
+        .scroll-section:nth-child(odd) {
+      background: linear-gradient(45deg, #1e1e1e 0%, #2a0a3a 100%);
+    }
+    .scroll-section:nth-child(even) {
+      background: linear-gradient(45deg, #2a0a3a 0%, #1e1e1e 100%);
+    }
+
+        .scroll-section.visible {
+      opacity: 1;
+      transform: translateY(0); /* Move to final position */
+    }
+
+
+    .scroll-section img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(255, 203, 5, 0.3);
+      border: 2px solid rgba(255, 203, 5, 0.3);
+      transition: transform 0.3s ease; 
+    }
+    .info-box {
+      max-width: 800px;
+      margin: auto;
+      padding: 40px;
+      background-color: rgba(17, 17, 17, 0.8);
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(255, 203, 5, 0.5);
+      backdrop-filter: blur(5px); 
+    }
+
+
+    .quote {
+      margin-top: 20px;
+      font-style: italic;
+      color: #ffcb05; 
+      border-left: 4px solid #ffcb05;
+      padding-left: 20px;
+      background: rgba(255, 203, 5, 0.1); 
+    }
+
+ 
+    .footer {
+      background: linear-gradient(to bottom, #1e1e1e, #0a0a2a);
+      padding: 40px;
+      text-align: center;
+      color: #ffcb05;
+    }
+    .social-icons a {
+      color: #ffcb05;
+      font-size: 28px;
+      transition: all 0.3s ease;
+    }
+    .social-icons a:hover {
+      transform: translateY(-5px) scale(1.1);
+      color: #fff;
+      text-shadow: 0 0 15px rgba(255, 203, 5, 0.8);
+    }
+
+    /* Back-to-top button */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, #ffcb05 0%, #ff5e62 100%);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      opacity: 0; /* Hidden by default */
+      transition: opacity 0.3s ease;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; } 
+      .info-box { padding: 25px; } 
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero" id="hero">
+    <h1 id="title">Exhibit A</h1>
+    <p id="subtitle">This small business located near Sacadadiin that is closed for its corrupt antics.</p>
+  </section>
+  <section class="scroll-section">
+    <img src="Business Photo.jpg" alt="The business in question - now closed due to corruption allegations" />
+  </section>
+
+  
+  <section class="scroll-section">
+    <div class="info-box">
+      <p>[What I discovered from studying this business is that people are saying it's downfall led to the rebellion because people would get horrible treatment, get paid less than miminum wage, and it ultimately led to an insane amount of people quitting and leaving destruction in their way.(All alleged information because im not trying to get sued).]</p>
+      
+
+      <div class="quote">
+        "[Employees are left disgruntled, heartbroken, and manipulate to the point where they all came in unison to take this business down.]"
+      </div>
+    </div>
+  </section>
+
+ 
+  <section class="scroll-section">
+    <div class="info-box">
+      <h2>Impact on Society</h2>
+      <p>[This type of behavior is impactful because it allows people to fully understand that corruption affecting psyche isn't just leaving employees unmotivated, but it can cause destructive tendencies within a business.]</p>
+    </div>
+  </section>
+
+
+  <footer class="footer">
+    <p>This is created to give people an idea on corruption affects the employee's morale and psyche.</p>
+      </footer>
+
+  
+  <div class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <script>  
+    const sections = document.querySelectorAll('.scroll-section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    sections.forEach(section => observer.observe(section));
+
+        const title = document.getElementById('title');
+    const subtitle = document.getElementById('subtitle');
+
+    document.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 10;
+      const y = (e.clientY / window.innerHeight - 0.5) * 10;
+      title.style.transform = `translate(${x}px, ${y}px)`;
+      subtitle.style.transform = `translate(${x / 2}px, ${y / 2}px)`;
+    });
+
+    // Show/hide back-to-top button based on scroll position
+    const backToTop = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.pageYOffset > 300);
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    
+    setInterval(() => {
+      const intensity = 0.7 + Math.random() * 0.3;
+      title.style.textShadow = 
+        `0 0 ${15 * intensity}px rgba(255, 203, 5, ${0.5 * intensity}), 
+         0 0 ${30 * intensity}px rgba(255, 203, 5, ${0.3 * intensity})`;
+    }, 2000);
+  </script>
+</body>
+</html>
